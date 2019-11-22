@@ -191,20 +191,16 @@ int init_module()
          */
         if (ret_val < 0) {
                 printk(KERN_ALERT "%s failed with %d\n",
-                       "Sorry, registering the character device ", ret_val);
+                       "Lo lamento, el registro del dispositivo de caracter", ret_val);
                 return ret_val;
         }
 
-        printk(KERN_INFO "%s The major device number is %d.\n",
-               "Registeration is a success", MAJOR_NUM);
-        printk(KERN_INFO "If you want to talk to the device driver,\n");
-        printk(KERN_INFO "you'll have to create a device file. \n");
-        printk(KERN_INFO "We suggest you use:\n");
+        printk(KERN_INFO "%s El major device number del dispositivo es %d.\n",
+               "El registro fue exitoso", MAJOR_NUM);
+        printk(KERN_INFO "Si quieres comunicarte con el dispositivo,\n");
+        printk(KERN_INFO "deberas crear un device file. \n");
+        printk(KERN_INFO "Sugerimos que uses:\n");
         printk(KERN_INFO "mknod %s c %d 0\n", DEVICE_FILE_NAME, MAJOR_NUM);
-        printk(KERN_INFO "The device file name is important, because\n");
-        printk(KERN_INFO "the ioctl program assumes that's the\n");
-        printk(KERN_INFO "file you'll use.\n");
-
         return 0;
 }
 
