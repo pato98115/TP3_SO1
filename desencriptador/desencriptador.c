@@ -1,20 +1,17 @@
-/*
- *  encryptor.c - Create an input/output character device
- */
 
 #include <linux/kernel.h>       /* We're doing kernel work */
 #include <linux/module.h>       /* Specifically, a module */
 #include <linux/fs.h>
 #include <asm/uaccess.h>        /* for get_user and put_user */
 
-#include "encriptador.h"
+#include "desencriptador.h"
 #define SUCCESS 0
 #define DEVICE_NAME "os_charencryptor"
 #define BUF_LEN 80
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Agustinoy Jeremias y Patricio Viccini");
-MODULE_DESCRIPTION("Encriptador de datos");
+MODULE_DESCRIPTION("Desencritador de datos");
 MODULE_VERSION("0.1");
 
 /* 
@@ -148,7 +145,7 @@ static ssize_t device_write(struct file *file,
         
         //Este for es el que toma los caracteres ingresados por el usuario y les suma 10 para encriptarlos.
         for (i = 0; i < length && i < BUF_LEN; i++)
-				Message[i] = Message[i]+10;
+				Message[i] = Message[i]-10;
 
         Message_Ptr = Message;
 
