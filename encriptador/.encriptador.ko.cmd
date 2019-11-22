@@ -1,0 +1,1 @@
+cmd_/home/jerea00/TP3_SO1/encriptador/encriptador.ko := ld -r -m elf_x86_64  -z max-page-size=0x200000 -T ./scripts/module-common.lds  --build-id  -o /home/jerea00/TP3_SO1/encriptador/encriptador.ko /home/jerea00/TP3_SO1/encriptador/encriptador.o /home/jerea00/TP3_SO1/encriptador/encriptador.mod.o ;  true
