@@ -158,72 +158,6 @@ static ssize_t device_write(struct file *file,
         return i;
 }
 
-/* 
- * Esta funcion se llama cada vez que un proceso intenta hacer un ioctl sobre nuestro archivo de dispositivo. 
- * Tenemos dos parametros extras (adicional a las estructuras de inodo y archivo
- * que obtienen todas las funciones del dispotivivo): el numero de ioctl es llamado
- * y el numero de parametros dado por la funcion ioctl.
- *
- * Si el ioctl es de escritura o escritura/lectura (lo que significa que la salida se 
- * devuelve al proceso de llamada), la llamada ioctl retorna la salida de esta funcion
- *
- */
-long device_ioctl(struct file *file,     /* ditto */
-                 unsigned int ioctl_num,        /* numero y parametro para IOCTL */
-                 unsigned long ioctl_param)
-{
-        int i;
-        char *temp;
-        char ch;
-
-        /* 
-         * Switch de acuerdo al IOCTL llamado 
-         */
-        switch (ioctl_num) {
-            case IOCTL_SET_MSG:
-                    /* 
-                     * Recibe un puntero para un mensaje (en espacio de usuario) y configura
-                     * para que sea el mensaje del dispositivo. Obtiene el parametro dado 
-                     * por el IOCTL del proceso
-                     */
-                    temp = (char *)ioctl_param;
-
-                    /* 
-                     * Encuentra la longitud del mensaje
-                     */
-                    get_user(ch, temp);
-                    for (i = 0; ch && i < BUF_LEN; i++, temp++)
-                            get_user(ch, temp);
-
-                    device_write(file, (char *)ioctl_param, i, 0);
-                    break;
-
-            case IOCTL_GET_MSG:
-                    /* 
-                     * Dar el mensaje actual al proceso de llamada,
-                     * el parametro que obtuvimos es un puntero, llenarlo.
-                     */
-                    i = device_read(file, (char *)ioctl_param, 99, 0);
-
-                    /* 
-                     * Pone un cero al final del bufer, para que se termine
-                     * correctamente
-                     */
-                    put_user('\0', (char *)ioctl_param + i);
-                    break;
-
-            case IOCTL_GET_NTH_BYTE:
-                    /* 
-                     * Este ioctl esta entre la entrada (ioctl_param) y 
-                     * la salida (el retorno del valor de esta funcion) 
-                     */
-                    return Message[ioctl_param];
-                    break;
-        }
-
-        return SUCCESS;
-}
-
 /* Module Declarations */
 
 /* 
@@ -236,7 +170,7 @@ long device_ioctl(struct file *file,     /* ditto */
 struct file_operations Fops = {
         .read = device_read,
         .write = device_write,
-        .unlocked_ioctl = device_ioctl,
+        .unlocked_ioctl = NULL,
         .open = device_open,
         .release = device_release,      /* a.k.a. close */
 };

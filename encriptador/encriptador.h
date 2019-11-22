@@ -18,47 +18,6 @@
  */
 #define MAJOR_NUM 200
 
-
-/* 
- * Configura el mensaje del driver del dispositivo
- */
-#define IOCTL_SET_MSG _IOR(MAJOR_NUM, 0, char *)
-/*
- * _IOR significa que estamos creando un numero de comando ioctl
- * para pasar informacion de un proceso de usuario al modulo del kernel
- *
- * El primer argumento, MAJOR_NUM, es el numero de dispositivo
- * principal que estamos usando
- *
- * El segundo argumento es el numero de comando
- * (podria haber diferentes significados).
- *
- * El tercer argumento es el tipo que queremos obtener del proceso 
- * al kernel
- */
-
-
-
-/* 
- * Obtiene el mensaje del driver del dipositivo
- */
-#define IOCTL_GET_MSG _IOR(MAJOR_NUM, 1, char *)
-/* 
- * Este IOCTL se utiliza para la salida, para obtener el mensaje
- * del driver del dispositivo. Sin embargo, todavia necesitamos el
- * bufer para colocar el mensaje en la entrada, ya que el proceso
- * lo asigna.
- */
-
-/* 
- * Devuelve el numero de bytes del mensaje
- */
-#define IOCTL_GET_NTH_BYTE _IOWR(MAJOR_NUM, 2, int)
-/* 
- * Este IOCTL se usa tanto para entrada como para salida
- * Recibe del usuario un numero n y devuelve un mensaje[n]
- */
-
 /* 
  * El nombre del archivo del dispositivo 
  */
