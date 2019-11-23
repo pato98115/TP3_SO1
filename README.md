@@ -22,14 +22,14 @@ escriben en el.
 >Este modulo es un manejador de dispositivos de caracter que cuando se escribe una
 cadena de caracteres en su archivo de dispositivo, toma esa cadena y la “encripta”
 *sumando un entero fijo a cada caracter de la cadena*.\
->Cuando se lee del archivo de dispositivo encriptador el manejador entrega la
+>Cuando se lee del archivo de dispositivo encriptador el controlador entrega la
 ultima cadena encriptada.
 
 ### Desencriptador :
 >Este modulo es un manejador de dispositivos de caracter que cuando se escribe una
 cadena de caracteres en su archivo de dispositivo, toma esa cadena y la “desencripta”
 *restando el mismo entero del primer manejador a cada caracter de la cadena*.\
->Cuando se lee del archivo de dispositivo desencriptador el manejador entrega la
+>Cuando se lee del archivo de dispositivo desencriptador el controlador entrega la
 ultima cadena desencriptada.
 
 ### Probar los modulos :
