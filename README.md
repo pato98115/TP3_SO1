@@ -16,8 +16,8 @@ escriben en el.
 
 ### Cargar un modulo :
 >Una vez que el modulo esta *compilado*, para usarlo necesitamos cargarlo al kernel. Esto se hace mediante el comando **sudo insmod <nombre_del_modulo.ko>** .\
->Al ejecutar esto tambien se ejecuta la funcion init del modulo en cuestion. Para nuestro proyecto es importante que luego se proceda a ejecutar el comando **dmseg | tail**, que mostrara la informacion suminstrada por el modulo para asi crear el *device file*.
-
+>Al ejecutar esto tambien se ejecuta la funcion init del modulo en cuestion. Para nuestro proyecto es importante que luego se proceda a ejecutar el comando **dmesg | tail**, que mostrara la informacion suminstrada por el modulo para asi crear el *device file*.
+>Para crear el device file, se debe ejecutar para el encriptador **sudo mknod -m 0666 /dev/encryptor_os c 200 0** y **sudo mknod -m 0666 /dev/decrypter_os c 201 0**, debido a que la informacion es brindada por el paso anterior.
 ### Encriptador:
 >Este modulo es un manejador de dispositivos de caracter que cuando se escribe una
 cadena de caracteres en su archivo de dispositivo, toma esa cadena y la “encripta”
@@ -38,6 +38,11 @@ ultima cadena desencriptada.
 >* **Desencriptar una cadena:** se puede escribir en el device file del desencriptador mediante, por ejemplo, el comando **echo *cadena* > /dev/decrypter_os**.
 > * **Leer cadena desencriptada:** se puede leer del device file del encriptador mediante, por ejemplo, el comando **cat /dev/decrypter_os**.
 
+### Para eliminar los modulos y archivos de modulo :
+> Para eliminar el modulo del encriptador se ejecuta el comando: **sudo rmmod encriptador** 
+> Para eliminar el archivo del modulo encriptador se ejecuta el comando: **sudo rm /dev/encryptor_os**
+> Para eliminar el modulo del desencriptador se ejecuta el comando: **sudo rmmod desencriptador** 
+> Para eliminar el archivo del modulo desencriptador se ejecuta el comando : **sudo rm /dev/decrypter_os**
 ---
 ## **Para el desarrollador:**
 
